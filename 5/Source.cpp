@@ -7,16 +7,7 @@
 #include <ctime> 
 #include <numeric>
 
-bool simple(int elem) {
-	int k = 0;
-	for (int i = 1; i < elem; i++) {
-		if (elem % i == 0) k++;
-	}
-
-	if (k < 3) return 1;
-	if (k > 2) return 0;
-}
-/*bool simple(int n) 
+bool simple(int n) 
 {
 	if (n == 1)	return false;
 	for (int i = 2; i*i <= n; i++)
@@ -24,7 +15,7 @@ bool simple(int elem) {
 		if (n%i == 0) return false;
 	}
 	return true;
-}*/
+}
 
 bool for_range(int n)
 {
@@ -60,6 +51,7 @@ int main()
 
 	/*7*/
 	auto pos1 = std::find_if(sequence1.begin(), sequence1.end(), simple);
+	int simp = sequence1[*pos1];
 
 	/*8*/
 	std::transform(sequence1.cbegin(), sequence1.cend(), 
@@ -145,7 +137,7 @@ int main()
 
 	std::cout << "There are " << odd_numbers << " odd numbers in sequence1." << std::endl;
 	std::cout << "Minimum and maximum were " << min << " and " << max << " respectively in sequence1." << std::endl;
-	std::cout << "One of prime numbers is " << sequence1[*pos1] << " in sequence1." << std::endl;
+	std::cout << "One of prime numbers is " << simp << " in sequence1." << std::endl;
 	std::cout << "The sum was " << sum << " in sequence2." << std::endl;
 
 	system("pause");
