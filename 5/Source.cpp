@@ -7,20 +7,25 @@
 #include <ctime> 
 #include <numeric>
 
-bool simple(int n) {
-	if (n == 1)
-	{
-		return false;
+bool simple(int elem) {
+	int k = 0;
+	for (int i = 1; i < elem; i++) {
+		if (elem % i == 0) k++;
 	}
+
+	if (k < 3) return 1;
+	if (k > 2) return 0;
+}
+/*bool simple(int n) 
+{
+	if (n == 1)	return false;
 	for (int i = 2; i*i <= n; i++)
 	{
-		if (n%i == 0)
-		{
-			return false;
-		}
+		if (n%i == 0) return false;
 	}
 	return true;
-}
+}*/
+
 bool for_range(int n)
 {
 	return n > 1;
@@ -52,11 +57,9 @@ int main()
 	/*6*/
 	int min = *std::min_element(sequence1.begin(), sequence1.end());
 	int max = *std::max_element(sequence1.begin(), sequence1.end());
-	std::cout << "Minimum and maximum are " << min << " and " <<  max << " respectively in sequence1." << std::endl;
 
 	/*7*/
 	auto pos1 = std::find_if(sequence1.begin(), sequence1.end(), simple);
-	std::cout << "One of prime numbers is " << sequence1[*pos1] << " in sequence1." << std::endl;
 
 	/*8*/
 	std::transform(sequence1.cbegin(), sequence1.cend(), 
@@ -75,7 +78,6 @@ int main()
 
 	/*10*/
 	int sum = std::accumulate(sequence2.cbegin(), sequence2.cend(), 0);
-	std::cout << "The sum is " << sum << " in sequence2." << std::endl;
 
 	/*11*/
 	std::transform(sequence2.cbegin(), sequence2.cend() - 10,
@@ -86,9 +88,10 @@ int main()
 
 	/*12*/
 	std::vector<int> sequence3;
+	sequence3.reserve(sequence1.size());
 	std::transform(sequence1.cbegin(), sequence1.cend(),
 		sequence2.begin(), std::back_inserter(sequence3),
-		[](int elem1, int elem2) {
+		[](auto elem1, auto elem2) {
 			return elem1 - elem2;
 	});
 	
@@ -96,14 +99,8 @@ int main()
 	std::transform(sequence3.cbegin(), sequence3.cend(),
 		sequence3.begin(),
 		[](int elem ) {
-		if (elem < 0) 
-		{
-			return 0;
-		}
-		else
-		{
-			return elem;
-		}
+		if (elem < 0) return 0;
+		else return elem;
 	});
 
 	/*14*/
@@ -126,21 +123,30 @@ int main()
 	std::merge(sequence1.begin(), sequence1.end(), sequence2.begin(), sequence2.end(), std::back_inserter(sequence4));
 
 	/*20*/
+	std::cout << "sequence1:" << std::endl;
 	std::copy(sequence1.cbegin(), sequence1.cend(),
 	std::ostream_iterator<int>(std::cout, " "));
 	std::cout << "\n";
 
+	std::cout << "sequence2:" << std::endl;
 	std::copy(sequence2.cbegin(), sequence2.cend(),
 	std::ostream_iterator<int>(std::cout, " "));
 	std::cout << "\n";
 
+	std::cout << "sequence3:" << std::endl;
 	std::copy(sequence3.cbegin(), sequence3.cend(),
 	std::ostream_iterator<int>(std::cout, " "));
 	std::cout << "\n";
 
+	std::cout << "sequence4:" << std::endl;
 	std::copy(sequence4.cbegin(), sequence4.cend(),
 	std::ostream_iterator<int>(std::cout, " "));
 	std::cout << "\n";
+
+	std::cout << "There are " << odd_numbers << " odd numbers in sequence1." << std::endl;
+	std::cout << "Minimum and maximum were " << min << " and " << max << " respectively in sequence1." << std::endl;
+	std::cout << "One of prime numbers is " << sequence1[*pos1] << " in sequence1." << std::endl;
+	std::cout << "The sum was " << sum << " in sequence2." << std::endl;
 
 	system("pause");
 	return 0;
