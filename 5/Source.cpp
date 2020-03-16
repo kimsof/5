@@ -114,6 +114,10 @@ int main()
 	std::vector<int> sequence4;
 	std::merge(sequence1.begin(), sequence1.end(), sequence2.begin(), sequence2.end(), std::back_inserter(sequence4));
 
+	/*19*/
+	int a = count(sequence4.begin(), sequence4.end(), 0);
+	int b = count(sequence4.begin(), sequence4.end(), 1);
+
 	/*20*/
 	std::cout << "sequence1:" << std::endl;
 	std::copy(sequence1.cbegin(), sequence1.cend(),
@@ -139,6 +143,8 @@ int main()
 	std::cout << "Minimum and maximum were " << min << " and " << max << " respectively in sequence1." << std::endl;
 	std::cout << "One of prime numbers is " << simp << " in sequence1." << std::endl;
 	std::cout << "The sum was " << sum << " in sequence2." << std::endl;
+	std::cout << "The sum was " << sum << " in sequence2." << std::endl;
+	std::cout << "Possible values for 1's indices are from " << a << " to " << a + b - 1 << " in sequence4." << std::endl;
 
 	system("pause");
 	return 0;
